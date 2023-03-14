@@ -1,97 +1,87 @@
-Summary
-=======
 
-The `SvgUtility` and `SvgUtilityBuilder` classes provide a convenient and streamlined way to create, parse, and modify SVG files in Java. `SvgUtility` allows for the manipulation of SVG files with methods such as parsing SVG files to strings, changing colors, classes, and attributes in SVG files, adding styles, and exporting SVG files to a file path. `SvgUtilityBuilder` implements the builder pattern by allowing for the modification of various parameters using builder methods, which are then used in the appropriate methods of `SvgUtility` to modify the SVG file.
+I apologize for the confusion. Here's a possible Markdown format for a README file for the `SvgUtility` class:
 
 SvgUtility
 ==========
 
-The `SvgUtility` class provides a set of static methods for parsing, modifying, and exporting SVG files in Java. Some of the key features and methods of `SvgUtility` include:
+The `SvgUtility` class is a tool designed to simplify and streamline the process of handling SVG files. It contains several static methods for parsing SVG files to strings, changing colors, classes, and attributes in SVG files, adding styles and exporting SVG files to a file path.
 
-*   The ability to parse an SVG file to a string using the `parseSvgToString()` method.
-*   The ability to change the fill color of an SVG using the `changeColor()` method.
-*   The ability to change the class of an SVG using the `changeClass()` method.
-*   The ability to add a new class to an SVG using the `addClass()` method.
-*   The ability to add a new attribute to the opening <svg> tag using the `addAttribute()` method.
-*   The ability to add a new style to the existing style attribute or create a new style attribute using the `addStyle()` method.
-*   The ability to export an SVG file to a file path using the `exportSvgToFile()` method.
+Installation
+------------
 
-SvgUtilityBuilder
-=================
+To use the `SvgUtility` class, you can simply include the `SvgUtility.java` file in your project's source code.
 
-The `SvgUtilityBuilder` class provides a way to modify an SVG file using a set of builder methods before building and returning the modified SVG as a string. Some key features and methods of `SvgUtilityBuilder` include:
+Usage
+-----
 
-*   The ability to set the SVG file to be used by `SvgUtility` methods with the `setSvgFile()` method.
-*   The ability to set the HTML class to be used by `SvgUtility` methods with the `setHtmlClass()` method.
-*   The ability to add a new attribute to the opening <svg> tag using the `setAttribute()` method.
-*   The ability to change the fill color of an SVG using the `addColor()` method.
-*   The ability to set a new CSS class for the SVG using the `addNewClass()` method.
-*   The ability to add a new attribute to the opening <svg> tag using the `addNewAttribute()` method.
-*   The ability to add a new style to the existing style attribute or create a new style attribute using the `addNewStyle()` method.
-*   The ability to export the modified SVG file to a file path using the `addFilePath()` method.
-*   The ability to add a new CSS class to the SVG using the `addClass()` method.
+Here are some examples of how to use the `SvgUtility` class:
 
-Overall, both `SvgUtility` and `SvgUtilityBuilder` provide a comprehensive set of tools for working with SVG files in Java, making it easier to manipulate and create SVG files in code.
+### Parsing an SVG file to a string
 
+Copy code
 
-Examples
-========
-
-### Modifying an SVG File with SvgUtilityBuilder
-
-```java
-try {
-    String modifiedSvg = new SvgUtilityBuilder()
-            .setSvgFile("example.svg")
-            .setHtmlClass("my-class")
-            .addNewAttribute("viewBox=\"0 0 100 100\"")
-            .addColor("#FF0000")
-            .addNewClass("new-class")
-            .addNewStyle("stroke: black;")
-            .build();
-    System.out.println(modifiedSvg);
-} catch (IOException e) {
-    e.printStackTrace();
-}
+```java 
+String svgString = SvgUtility.parseSvgToString("path/to/file.svg");
 ```
 
-This example uses the `SvgUtilityBuilder` to create a modified SVG file with various modifications. It sets the SVG file to be modified, adds an HTML
+This method parses an SVG file to a string and adds a class and an attribute to the `<svg>` tag.
 
-### Parsing an SVG File to a String
+### Changing the color of an SVG
 
-
-```java
-
-try {
-    String svgString = SvgUtility.parseSvgToString("example.svg");
-    System.out.println(svgString);
-} catch (IOException e) {
-    e.printStackTrace();
-}
+Copy code
+```java 
+String newSvgString = SvgUtility.changeColor(svgString, "#FF0000");
 ```
 
-This example uses the `parseSvgToString()` method to read an SVG file at "example.svg", add a "class" attribute with the value "my-class", and add additional attributes `width` and `height` to the opening `<svg>` tag.
-### Changing the Fill Color of an SVG
+This method replaces the `fill` attribute in the SVG string with the specified color value.
 
-```java
-try {
-    String svgString = SvgUtility.changeColor("example.svg", "#FF0000");
-    System.out.println(svgString);
-} catch (IOException e) {
-    e.printStackTrace();
-}
+### Changing the class of an SVG
+
+Copy code
+```java 
+String newSvgString = SvgUtility.changeClass(svgString, "new-class");
 ```
 
-This example uses the `changeColor()` method to change the fill color of an SVG file at "example.svg" to red (#FF0000).
+This method replaces the `class` attribute with a new class value in the SVG string.
 
-### Adding a New CSS Class to an SVG
+### Adding a class to an SVG
 
-```java
-try {
-    String svgString = SvgUtility.addClass("example.svg", "my-class");
-    System.out.println(svgString);
-} catch (IOException e) {
-    e.printStackTrace();
-}
+Copy code
+```java 
+String newSvgString = SvgUtility.addClass(svgString, "new-class");
 ```
-This example uses the `addClass()` method to add a new CSS class "my-class" to an SVG file at "example.svg".
+
+This method adds a new class value to the existing class attribute in the SVG string.
+
+### Adding an attribute to an SVG
+
+Copy code
+```java 
+String newSvgString = SvgUtility.addAttribute(svgString, "height=\"100%\"");
+```
+
+This method adds a new attribute to the opening `<svg>` tag in the SVG string.
+
+### Adding a style to an SVG
+
+Copy code
+```java 
+String newSvgString = SvgUtility.addStyle(svgString, "background-color: #FF0000;");
+```
+
+This method adds a new style to the existing style attribute or creates a new style attribute in the opening `<svg>` tag in the SVG string.
+
+### Exporting an SVG file
+
+Copy code
+```java 
+SvgUtility.exportSvgToFile(newSvgString, "path/to/newfile.svg");
+```
+
+This method exports the modified SVG string to a file at the specified file path.
+
+Author and version
+------------------
+
+This `SvgUtility` class was created by Mojtaba Jalambadani and is currently at version 1.0.
+
