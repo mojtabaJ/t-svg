@@ -1,4 +1,4 @@
-package org.example;
+package io.github.mojtabaJ;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -155,9 +155,6 @@ public class SvgUtilityBuilder {
         if (newStyle != null) {
             svgString = SvgUtility.addStyle(svgString, newStyle);
         }
-
-        svgString = SvgUtility.addRandomAnimation(svgString);
-
 
         if (filePath != null) {
             SvgUtility.exportSvgToFile(svgString, filePath);

@@ -1,4 +1,4 @@
-package org.example;
+package io.github.mojtabaJ;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
