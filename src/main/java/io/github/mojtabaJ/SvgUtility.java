@@ -79,22 +79,27 @@ public class SvgUtility {
      * @return the modified SVG string as a single string
      */
     public static String changeColor(String svgString, String color) {
-        String newSvgString = svgString;
-        String fillAttribute = "fill=\"";
-        String defaultColor = "#000000"; // Default color to use if fill attribute is missing
-        int fillIndex = newSvgString.indexOf(fillAttribute);
+        // Replace all instances of "fill" attribute in SVG with the new color
+        String result = svgString.replaceAll("fill=\"(.*?)\"", "fill=\"" + color + "\"");
 
-        // If fill attribute is missing, add it with default color
-        if (fillIndex < 0) {
-            newSvgString = newSvgString.replace("<svg", "<svg fill=\"" + defaultColor + "\"");
-            fillIndex = newSvgString.indexOf(fillAttribute);
+        // If any parts of the SVG have different colors, update the "fill" attribute accordingly
+        String pattern = "fill=\"" + color + "\"";
+        Matcher matcher = Pattern.compile("fill=\"(.*?)\"").matcher(result);
+
+        while (matcher.find()) {
+            String matched = matcher.group(1);
+
+            if (!matched.equals(color)) {
+                result = result.replace(matched, color);
+            }
         }
 
-        // Replace fill attribute with new color
-        int endIndex = newSvgString.indexOf("\"", fillIndex + fillAttribute.length());
-        newSvgString = newSvgString.substring(0, fillIndex + fillAttribute.length()) + color + newSvgString.substring(endIndex);
-
-        return newSvgString;
+        // If no fill attribute was found in the SVG, add it to the root tag with the new color
+        if (result.indexOf("fill") == -1) {
+            int index = result.indexOf("<svg");
+            result = result.substring(0, index + 4) + " fill=\"" + color + "\"" + result.substring(index + 4);
+        }
+        return result;
     }
 
     /**
@@ -200,4 +205,29 @@ public class SvgUtility {
         }
     }
 
+    /**
+     * scaleSvg() method scales the SVG image by the specified scaling factor.
+     * It searches for the width and height attributes in the opening <svg> tag and multiplies them by the scaling factor.
+     * If either of the attributes is missing, this method will not modify the SVG string.
+     * It then returns the modified SVG string.
+     *
+     * @param svgString: a string representing the SVG file contents
+     * @param scale: a double representing the scaling factor
+     * @return the modified SVG string with the image scaled by the specified factor
+     */
+    public static String scaleSvg(String svgString, double scale) {
+        Pattern widthPattern = Pattern.compile("width=\"(\\d+)\"");
+        Pattern heightPattern = Pattern.compile("height=\"(\\d+)\"");
+        Matcher widthMatcher = widthPattern.matcher(svgString);
+        Matcher heightMatcher = heightPattern.matcher(svgString);
+        int newWidth, newHeight;
+        if (widthMatcher.find() && heightMatcher.find()) {
+            newWidth = (int) (Integer.parseInt(widthMatcher.group(1)) * scale);
+            newHeight = (int) (Integer.parseInt(heightMatcher.group(1)) * scale);
+            return svgString.replaceAll("width=\"(\\d+)\"", "width=\"" + newWidth + "\"")
+                    .replaceAll("height=\"(\\d+)\"", "height=\"" + newHeight + "\"");
+        } else {
+            return svgString;
+        }
+    }
 }

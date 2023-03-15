@@ -38,6 +38,7 @@ Examples
 ========
 
 ### Modifying an SVG File with SvgUtilityBuilder
+This example uses the `SvgUtilityBuilder` to create a modified SVG file with various modifications. It sets the SVG file to be modified, adds an HTML
 
 ```java
 try {
@@ -55,9 +56,9 @@ try {
 }
 ```
 
-This example uses the `SvgUtilityBuilder` to create a modified SVG file with various modifications. It sets the SVG file to be modified, adds an HTML
 
 ### Parsing an SVG File to a String
+This example uses the `parseSvgToString()` method to read an SVG file at "example.svg", add a "class" attribute with the value "my-class", and add additional attributes `width` and `height` to the opening `<svg>` tag.
 
 
 ```java
@@ -70,8 +71,8 @@ try {
 }
 ```
 
-This example uses the `parseSvgToString()` method to read an SVG file at "example.svg", add a "class" attribute with the value "my-class", and add additional attributes `width` and `height` to the opening `<svg>` tag.
 ### Changing the Fill Color of an SVG
+This example uses the `changeColor()` method to change the fill color of an SVG file at "example.svg" to red (#FF0000).
 
 ```java
 try {
@@ -82,10 +83,9 @@ try {
 }
 ```
 
-This example uses the `changeColor()` method to change the fill color of an SVG file at "example.svg" to red (#FF0000).
 
 ### Adding a New CSS Class to an SVG
-
+This example uses the `addClass()` method to add a new CSS class "my-class" to an SVG file at "example.svg".
 ```java
 try {
     String svgString = SvgUtility.addClass("example.svg", "my-class");
@@ -94,4 +94,3 @@ try {
     e.printStackTrace();
 }
 ```
-This example uses the `addClass()` method to add a new CSS class "my-class" to an SVG file at "example.svg".
